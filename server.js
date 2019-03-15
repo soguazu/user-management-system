@@ -117,6 +117,18 @@ router.route('/users/:user_id')
         
     })
 
+    //delete the user with this id
+    .delete(function(request, resposne) {
+        user.remove({
+            _id: request.params.user_id
+        }, function(err, user) {
+                if (err)
+                    resposne.send(err);
+                
+                resposne.json({message: 'Successfully deleted'});
+        });
+    });
+
 
 app.use("/api", router);
 
