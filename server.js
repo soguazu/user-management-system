@@ -96,6 +96,28 @@ router.route('/users/:user_id')
         })
     })
 
+    //Update the user with this id
+    .put(function(request, response) {
+        //use our user model to find the user we want
+        User.findById(request.params.user_id, function(err, user) {
+            if (err)
+                response.send(err);
+
+            user.name = request.body.name || user.name;
+            user.age = request.body.age || user.age;
+            user.sex = request.body.sex || user.sex;
+            user.email = request.body.email || user.email;      
+            user.save(function(err) {
+                if (err)
+                    response.send(err);
+
+                response.json({message: 'User updated'});    
+            })      
+        })
+        
+    })
+
+
 app.use("/api", router);
 
 //START THE SERVER
