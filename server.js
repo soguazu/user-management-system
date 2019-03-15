@@ -7,19 +7,19 @@ const User = require('./app/model/user');
 
 const mongoose = require('mongoose');
 
-// const mongoDB = 'mongodb://127.0.0.1/users';
-// mongoose.connect(mongoDB, {useNewUrlParser: true});
+const mongoDB = 'mongodb://127.0.0.1/users';
+mongoose.connect(mongoDB, {useNewUrlParser: true});
 
-// //Getting the global promise
-// mongoose.Promise = global.Promise;
+//Getting the global promise
+mongoose.Promise = global.Promise;
 
-// //Get default connection
-// var db = mongoose.connection;
+//Get default connection
+var db = mongoose.connection;
 
 
 
-// //Bind connection connection to error event (to get notification for connection error)
-// db.on('error', console.error.bind(console, 'MongoDB connection error'))
+//Bind connection connection to error event (to get notification for connection error)
+db.on('error', console.error.bind(console, 'MongoDB connection error'))
 
 
 //Configure the app to use body-parser
@@ -68,6 +68,31 @@ router.route('/users')
                 response.send(err)
             }
             response.json({message: 'User created'});
+        })
+    })
+
+    //Get all users
+    .get(function(request, response) {
+        User.find(function(err, users) {
+            if (err) {
+                response.send(err);
+            }
+
+            response.json(users);
+        })
+    })
+
+//Register routes that ends in /users/:user_id
+
+router.route('/users/:user_id')
+
+    //Get the user with id
+    .get(function(request, response) {
+        User.findById(request.params.user_id, function(err, user) {
+            if (err) {
+                response.send(err);
+            }
+            response.json(user);
         })
     })
 
