@@ -119,7 +119,7 @@ router.route('/users/:user_id')
 
     //delete the user with this id
     .delete(function(request, resposne) {
-        user.remove({
+        User.remove({
             _id: request.params.user_id
         }, function(err, user) {
                 if (err)
