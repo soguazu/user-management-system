@@ -1,7 +1,7 @@
 # user-management-system
 A simple system that simulates REST API with Node.js, Express.js, MongoDB
 
-**###Getting Started**
+###Getting Started
 *********
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 ### Prerequisites
